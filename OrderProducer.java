@@ -16,7 +16,7 @@ public class OrderProducer extends RouteBuilder {
 
     
     from("timer:java?period=90000")
-         .to("https://raw.githubusercontent.com/abdelhamidfg/greeting-service/master/orders.json")
+         .to("https://raw.githubusercontent.com/abdelhamidfg/camel-idempotent-consumer/main/orders.json")
          .split().jsonpathWriteAsString("$.orders[*]")
          .log(" ${body}")
         .to("kafka:orders-duplicate-topic")
