@@ -1,3 +1,2 @@
-{
-  .vhsBody[0] | {"seri_no": .seri_no, "bolgeMudurlugu": .bolgeMudurlugu, "tesis_adi": .tesis_adi, "sayac_id": .sayac_id, "eic": .eic}
-}
+ .vhsBody[0] | {"seri_no": .seri_no, "bolgeMudurlugu": .bolgeMudurlugu, "tesis_adi": .tesis_adi, "sayac_id": .sayac_id, "eic": .eic}
+
