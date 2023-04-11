@@ -1,0 +1,40 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: integration
+spec:
+  source:
+    ref:
+      apiVersion: camel.apache.org/v1alpha1
+      name: http-secured-source
+      kind: Kamelet
+    properties:
+      period: '100000'
+      authenticationPreemptive: 'false'
+      authUsername: username
+      authMethod: Basic
+      contentType: application/json
+      url: https://my-microcksinstall-microcks.apps.cluster.ocp-hamid.com/rest/osos/1.0.0/getPortfoyVhs
+      authPassword: password
+  steps:
+  - ref:
+      apiVersion: camel.apache.org/v1alpha1
+      name: jslt-action
+      kind: Kamelet
+    properties:
+      template: https://raw.githubusercontent.com/abdelhamidfg/camel-idempotent-consumer/main/transform.json
+  sink:
+    ref:
+      apiVersion: camel.apache.org/v1alpha1
+      name: sqlserver-sink
+      kind: Kamelet
+    properties:
+      password: hamid
+      databaseName: socar
+      encrypt: 'false'
+      query: INSERT INTO meters (seri_no,eic,bolgeMudurlugu,tesis_adi,sayac_id) VALUES
+        (:#seri_no,:#eic,:#bolgeMudurlugu,:#tesis_adi,:#sayac_id)
+      serverName: 192.168.1.239
+      trustServerCertificate: 'true'
+      serverPort: '1433'
+      username: hamid
